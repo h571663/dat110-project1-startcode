@@ -1,24 +1,26 @@
 package no.hvl.dat110.rpc;
 
-import java.util.Arrays;
-
-import no.hvl.dat110.TODO;
+import java.nio.ByteBuffer;
 
 public class RPCUtils {
 
-	// Utility methods for marshalling and marshalling of parameters and return values
+	// Utility methods for marshalling and marshalling of parameters and return
+	// values
 	// in RPC request and RPC responses
-	// data bytearrays and return byte arrays is according to the 
+	// data bytearrays and return byte arrays is according to the
 	// RPC message syntax [rpcid,parameter/return value]
-	
+
 	public static byte[] marshallString(byte rpcid, String str) {
 
-		byte[] encoded;
+		byte[] encoded = new byte[1 + str.getBytes().length];
 
 		// TODO: marshall RPC identifier and string into byte array
 
-		if (true) {
-			throw new UnsupportedOperationException(TODO.method());
+		encoded[0] = rpcid;
+		int i = 1;
+
+		for (byte b : str.getBytes()) {
+			encoded[i++] = b;
 		}
 
 		return encoded;
@@ -30,22 +32,18 @@ public class RPCUtils {
 
 		// TODO: unmarshall String contained in data into decoded
 
-		if (true) {
-			throw new UnsupportedOperationException(TODO.method());
-		}
+		decoded = new String(data, 1, data.length - 1);
 
 		return decoded;
 	}
 
 	public static byte[] marshallVoid(byte rpcid) {
 
-		byte[] encoded;
+		byte[] encoded = new byte[1];
 
 		// TODO: marshall RPC identifier in case of void type
 
-		if (true) {
-			throw new UnsupportedOperationException(TODO.method());
-		}
+		encoded[0] = rpcid;
 
 		return encoded;
 
@@ -79,27 +77,31 @@ public class RPCUtils {
 
 	public static byte[] marshallInteger(byte rpcid, int x) {
 
-		byte[] encoded;
+		byte[] encoded = new byte[5];
 
 		// TODO: marshall RPC identifier and string into byte array
 
-		if (true) {
-			throw new UnsupportedOperationException(TODO.method());
+		encoded[0] = rpcid;
+		
+		byte[] intBuffer = ByteBuffer.allocate(4).putInt(x).array();
+		
+		int i = 1;
+		
+		for(byte b : intBuffer) {
+			encoded[i++] = b;
 		}
-
+		
 		return encoded;
 	}
 
 	public static int unmarshallInteger(byte[] data) {
-
+		
 		int decoded;
-
+		
 		// TODO: unmarshall integer contained in data
-
-		if (true) {
-			throw new UnsupportedOperationException(TODO.method());
-		}
-
+		
+		decoded = ByteBuffer.wrap(data, 1, data.length - 1).getInt();
+		
 		return decoded;
 
 	}

@@ -16,6 +16,7 @@ public class SensorImpl implements RPCImpl {
 		return (int) Math.ceil(temp);
 	}
 	
+	@Override
 	public byte[] invoke(byte[] request) {
 				
 		RPCUtils.unmarshallVoid(request); 
